@@ -39,7 +39,7 @@ public class AuthTest {
 
   @Test
   public void TestInvalidCredentials() {
-    JSONObject requestBody = createAuthRequestBody("admin1", "password123");
+    JSONObject requestBody = createAuthRequestBody("admin11", "password123");
 
     given()
         .header("Content-Type", "application/json")
