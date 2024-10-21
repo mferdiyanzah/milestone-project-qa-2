@@ -32,11 +32,12 @@ pipeline {
             steps {
                 dir(APP1_DIR) {
                     sh 'mvn test'
+                    sh 'mvn surefire-report:report-only'
                 }
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml', retain: true
                 }
             }
         }
@@ -53,11 +54,12 @@ pipeline {
             steps {
                 dir(APP2_DIR) {
                     sh 'mvn test'
+                    sh 'mvn surefire-report:report-only'
                 }
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml', retain: true
                 }
             }
         }
@@ -84,16 +86,16 @@ pipeline {
         success {
             publishHTML([
                 reportName: 'API Test Report',
-                reportDir: "${APP1_DIR}/target/surefire-reports",
-                reportFiles: '*.xml',
+                reportDir: "${APP1_DIR}/target/reports",
+                reportFiles: 'surefire.html',
                 keepAll: true,
                 allowMissing: false,
                 alwaysLinkToLastBuild: true
             ])
             publishHTML([
                 reportName: 'Web Test Report',
-                reportDir: "${APP2_DIR}/target/surefire-reports",
-                reportFiles: '*.xml',
+                reportDir: "${APP2_DIR}/target/reports",
+                reportFiles: 'surefire.html',
                 keepAll: true,
                 allowMissing: false,
                 alwaysLinkToLastBuild: true
