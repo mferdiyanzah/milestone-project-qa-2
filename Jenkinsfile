@@ -82,22 +82,16 @@ pipeline {
     
     post {
         success {
-            publishHTML([
-                reportName: 'API Test Report',
-                reportDir: "${APP1_DIR}/target/site",
-                reportFiles: 'index.html',
-                keepAll: true,
-                allowMissing: false,
-                alwaysLinkToLastBuild: true
-            ])
-            publishHTML([
-                reportName: 'Web Test Report',
-                reportDir: "${APP2_DIR}/target/site",
-                reportFiles: 'index.html',
-                keepAll: true,
-                allowMissing: false,
-                alwaysLinkToLastBuild: true
-            ])
+            ACIPluginPublisher(
+                reportDir: "${APP1_DIR}/target/surefire-reports",
+                reportFiles: '*.xml',
+                reportName: 'API Test XML Reports'
+            )
+            ACIPluginPublisher(
+                reportDir: "${APP2_DIR}/target/surefire-reports",
+                reportFiles: '*.xml',
+                reportName: 'Web Test XML Reports'
+            )
             echo 'Pipeline succeeded! All applications built and tested successfully.'
         }
         failure {
