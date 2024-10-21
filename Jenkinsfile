@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.5-jdk-11'  // Or another Maven image version
+            args '-v $HOME/.m2:/root/.m2'  // Mount local Maven repository (optional)
+        }
+    }
 
     stages {
         stage('Build and Test API Project') {
