@@ -37,7 +37,7 @@ pipeline {
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml', retain: true
+                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml', retain: true
+                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
                 }
             }
         }
