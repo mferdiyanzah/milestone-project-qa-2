@@ -1,33 +1,95 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.5-jdk-11'  // Or another Maven image version
-            args '-v $HOME/.m2:/root/.m2'  // Mount local Maven repository (optional)
-        }
+    agent any
+    
+    tools {
+        maven 'M3' // Make sure this matches your Maven installation name in Jenkins
+        jdk 'JDK11' // Make sure this matches your JDK installation name in Jenkins
     }
-
+    
+    environment {
+        // Adjust these paths according to your repository structure
+        APP1_DIR = 'api'
+        APP2_DIR = 'web'
+    }
+    
     stages {
-        stage('Build and Test API Project') {
+        stage('Checkout') {
             steps {
-                dir('api') {    // Navigate to the api project directory
-                    sh 'mvn clean install'  // Run Maven build and tests for API project
+                // Checkout code from repository
+                checkout scm
+            }
+        }
+        
+        stage('Build API Testing') {
+            steps {
+                dir(APP1_DIR) {
+                    sh 'mvn clean install -DskipTests'
                 }
             }
         }
-
-        stage('Build and Test Web Project') {
+        
+        stage('API Testing') {
             steps {
-                dir('web') {    // Navigate to the web project directory
-                    sh 'mvn clean install'  // Run Maven build and tests for Web project
+                dir(APP1_DIR) {
+                    sh 'mvn test'
                 }
+            }
+            post {
+                always {
+                    junit "**/target/surefire-reports/*.xml"
+                }
+            }
+        }
+        
+        stage('Build Web Testing') {
+            steps {
+                dir(APP2_DIR) {
+                    sh 'mvn clean install -DskipTests'
+                }
+            }
+        }
+        
+        stage('Web Testing') {
+            steps {
+                dir(APP2_DIR) {
+                    sh 'mvn test'
+                }
+            }
+            post {
+                always {
+                    junit "**/target/surefire-reports/*.xml"
+                }
+            }
+        }
+        
+        stage('Generate Reports') {
+            steps {
+                parallel(
+                    "API Testing Report": {
+                        dir(APP1_DIR) {
+                            sh 'mvn site'
+                        }
+                    },
+                    "Web Testing Report Report": {
+                        dir(APP2_DIR) {
+                            sh 'mvn site'
+                        }
+                    },
+                )
             }
         }
     }
-
+    
     post {
         always {
-            junit '**/target/surefire-reports/*.xml'  // Collect test reports from both projects
-            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true  // Archive JAR files from both projects
+            // Clean workspace after build
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline succeeded! All applications built and tested successfully.'
+        }
+        failure {
+            echo 'Pipeline failed! Check the logs for details.'
         }
     }
 }
