@@ -81,11 +81,23 @@ pipeline {
     }
     
     post {
-        always {
-            // Clean workspace after build
-            cleanWs()
-        }
         success {
+            publishHTML([
+                reportName: 'API Test Report',
+                reportDir: "${APP1_DIR}/target/site",
+                reportFiles: 'index.html',
+                keepAll: true,
+                allowMissing: false,
+                alwaysLinkToLastBuild: true
+            ])
+            publishHTML([
+                reportName: 'Web Test Report',
+                reportDir: "${APP2_DIR}/target/site",
+                reportFiles: 'index.html',
+                keepAll: true,
+                allowMissing: false,
+                alwaysLinkToLastBuild: true
+            ])
             echo 'Pipeline succeeded! All applications built and tested successfully.'
         }
         failure {
