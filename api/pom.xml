@@ -111,10 +111,10 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>Sample-Cucumber-TestNG</projectName>
+                            <projectName>${project.artifactId}</projectName>
                             <skip>false</skip>
-                            <outputDirectory>reports/html-reports</outputDirectory>
-                            <inputDirectory>target/cucumber-reports</inputDirectory>
+                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory> <!-- Make sure this matches the output directory -->
+                            <inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>
                             </jsonFiles>
@@ -122,6 +122,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>

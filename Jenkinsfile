@@ -10,6 +10,18 @@ pipeline {
         APP1_DIR = 'api'
         APP2_DIR = 'web'
     }
+
+    stage('Prepare Directories') {
+        steps {
+            dir(APP1_DIR) {
+                sh 'mkdir -p target/cucumber-reports'
+            }
+            dir(APP2_DIR) {
+                sh 'mkdir -p target/cucumber-reports'
+            }
+        }
+    }
+
     
     stages {
         stage('Checkout') {
@@ -30,6 +42,7 @@ pipeline {
             steps {
                 dir(APP1_DIR) {
                     sh 'mvn test'
+                    stash includes: 'target/cucumber-reports/*.json', name: 'cucumber-reports'
                 }
             }
         }
@@ -61,6 +74,7 @@ pipeline {
             steps {
                 dir(APP2_DIR) {
                     sh 'mvn test'
+                    stash includes: 'target/cucumber-reports/*.json', name: 'cucumber-reports'
                 }
             }
         }
