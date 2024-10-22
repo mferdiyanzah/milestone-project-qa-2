@@ -21,7 +21,8 @@ public class TestGoogle {
   private WebDriverWait wait;
 
   // Get Selenium URL from environment variable or use localhost as default
-  private static final String SELENIUM_HOST = System.getProperty("selenium.host", "localhost");
+  private static final String SELENIUM_HOST = System.getProperty("selenium.host",
+      System.getenv("SELENIUM_HOST") != null ? System.getenv("SELENIUM_HOST") : "localhost");
   private static final String SELENIUM_URL = String.format("http://%s:4444/wd/hub", SELENIUM_HOST);
 
   @BeforeTest
