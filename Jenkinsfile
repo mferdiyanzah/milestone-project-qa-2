@@ -2,12 +2,11 @@ pipeline {
     agent any
     
     tools {
-        maven 'maven' // Make sure this matches your Maven installation name in Jenkins
-        jdk 'jdk' // Make sure this matches your JDK installation name in Jenkins
+        maven 'maven'
+        jdk 'jdk'
     }
     
     environment {
-        // Adjust these paths according to your repository structure
         APP1_DIR = 'api'
         APP2_DIR = 'web'
     }
@@ -15,7 +14,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from repository
                 checkout scm
             }
         }
