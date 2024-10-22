@@ -11,22 +11,22 @@ pipeline {
         APP2_DIR = 'web'
     }
 
-    stage('Prepare Directories') {
-        steps {
-            dir(APP1_DIR) {
-                sh 'mkdir -p target/cucumber-reports'
-            }
-            dir(APP2_DIR) {
-                sh 'mkdir -p target/cucumber-reports'
-            }
-        }
-    }
-
     
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Prepare Directories') {
+            steps {
+                dir(APP1_DIR) {
+                    sh 'mkdir -p target/cucumber-reports'
+                }
+                dir(APP2_DIR) {
+                    sh 'mkdir -p target/cucumber-reports'
+                }
             }
         }
         
