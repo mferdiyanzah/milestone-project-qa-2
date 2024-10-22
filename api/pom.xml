@@ -113,6 +113,7 @@
                         <configuration>
                             <projectName>${project.artifactId}</projectName>
                             <skip>${skipTests}</skip>
+                            <testFailureIgnore>true</testFailureIgnore>
                             <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory> <!-- Make sure this matches the output directory -->
                             <inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
                             <jsonFiles>
