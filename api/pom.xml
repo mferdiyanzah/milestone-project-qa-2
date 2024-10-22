@@ -112,7 +112,7 @@
                         </goals>
                         <configuration>
                             <projectName>${project.artifactId}</projectName>
-                            <skip>false</skip>
+                            <skip>${skipTests}</skip>
                             <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory> <!-- Make sure this matches the output directory -->
                             <inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
                             <jsonFiles>
