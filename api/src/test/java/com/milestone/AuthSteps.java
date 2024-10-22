@@ -1,24 +1,28 @@
 package com.milestone;
 
-import io.cucumber.java.Before;
-import io.cucumber.java.en.*;
-import io.restassured.RestAssured;
-import org.json.simple.JSONObject;
-import org.junit.Assume;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.notNullValue;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import org.json.simple.JSONObject;
+
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 
 public class AuthSteps {
   private String baseURI;
   private JSONObject requestBody;
   private int responseStatus;
   private String responseReason;
+  private RequestSpecification spec;
 
   @Before
   public void setUp() {
     baseURI = "https://restful-booker.herokuapp.com/auth";
-    RestAssured.baseURI = baseURI;
+    spec = new RequestSpecBuilder().setBaseUri(baseURI).build();
   }
 
   @Given("the user has username {string} and password {string}")
@@ -46,6 +50,7 @@ public class AuthSteps {
   public void theUserRequestsAToken() {
     System.out.println(RestAssured.baseURI);
     responseStatus = given()
+        .spec(spec)
         .header("Content-Type", "application/json")
         .body(requestBody.toJSONString())
         .when()
@@ -56,6 +61,7 @@ public class AuthSteps {
   @Given("the user requests a token with content type {string}")
   public void theUserRequestsATokenWithContentType(String contentType) {
     responseStatus = given()
+        .spec(spec)
         .header("Content-Type", contentType)
         .body(requestBody.toJSONString())
         .when()
@@ -63,16 +69,17 @@ public class AuthSteps {
         .statusCode();
   }
 
-  @Then("the response status code should be {int}")
+  @Then("the login's API response status code should be {int}")
   public void theResponseStatusCodeShouldBe(int expectedStatus) {
     System.out.println(responseStatus);
-    // assert responseStatus == expectedStatus;
-    Assume.assumeTrue(expectedStatus == responseStatus);
+    assert responseStatus == expectedStatus;
+    // Assume.assumeTrue(expectedStatus == responseStatus);
   }
 
   @Then("the response should contain a token")
   public void theResponseShouldContainAToken() {
     given()
+        .spec(spec)
         .header("Content-Type", "application/json")
         .body(requestBody.toJSONString())
         .when()
@@ -81,17 +88,18 @@ public class AuthSteps {
         .body("token", notNullValue());
   }
 
-  @Then("the response reason should be {string}")
+  @Then("the login's API response reason should be {string}")
   public void theResponseReasonShouldBe(String expectedReason) {
     responseReason = given()
+        .spec(spec)
         .header("Content-Type", "application/json")
         .body(requestBody.toJSONString())
         .when()
         .post()
         .then()
         .extract().path("reason");
-    // assert responseReason.equals(expectedReason);
-    Assume.assumeTrue(responseReason.equals(expectedReason));
+    // Assume.assumeTrue(responseReason.equals(expectedReason));
+    assert responseReason.equals(expectedReason);
   }
 
   @SuppressWarnings("unchecked")
