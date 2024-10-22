@@ -36,6 +36,17 @@ pipeline {
                 always {
                     junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
                 }
+                success {
+                    // Publish Cucumber Reports if the tests are successful
+                    publishHTML([
+                        reportName: 'Rest Assured - API Testing Report',
+                        reportDir: "${APP1_DIR}/target/cucumber-reports",
+                        reportFiles: 'cucumber.html',
+                        keepAll: true,
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true
+                    ])
+                }
             }
         }
         
@@ -56,6 +67,17 @@ pipeline {
             post {
                 always {
                     junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
+                }
+                success {
+                    // Publish Cucumber Reports if the tests are successful
+                    publishHTML([
+                        reportName: 'Selenium - Web Testing Report',
+                        reportDir: "${APP2_DIR}/target/cucumber-reports",
+                        reportFiles: 'cucumber.html',
+                        keepAll: true,
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true
+                    ])
                 }
             }
         }
@@ -80,22 +102,6 @@ pipeline {
     
     post {
         success {
-            publishHTML([
-                reportName: 'Rest Assured - API Testing Report',
-                reportDir: "${APP1_DIR}/target/cucumber-reports",
-                reportFiles: 'cucumber.html',
-                keepAll: true,
-                allowMissing: false,
-                alwaysLinkToLastBuild: true
-            ])
-            publishHTML([
-                reportName: 'Selenium - Web Testing Report',
-                reportDir: "${APP2_DIR}/target/cucumber-reports",
-                reportFiles: 'cucumber.html',
-                keepAll: true,
-                allowMissing: false,
-                alwaysLinkToLastBuild: true
-            ])
             echo 'Pipeline succeeded! All applications built and tested successfully.'
         }
         failure {
