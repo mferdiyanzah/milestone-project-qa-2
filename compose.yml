@@ -25,12 +25,11 @@ services:
       - SE_NODE_MAX_SESSIONS=4
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_SESSION_TIMEOUT=300
-      # Removed SE_OPTS entirely and use SE_NODE_PORT instead
       - SE_NODE_PORT=4444
-      # Separated OpenTelemetry config into its own environment variable
       - OTEL_RESOURCE_ATTRIBUTES=service.name=selenium-standalone
       - OTEL_TRACES_EXPORTER=otlp
       - OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
+      - SELENIUM_HOST=selenium-chrome
     ports:
       - "4444:4444"
       - "7900:7900"
