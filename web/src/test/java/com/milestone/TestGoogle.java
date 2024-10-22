@@ -28,6 +28,7 @@ public class TestGoogle {
   @BeforeTest
   public void setup() throws MalformedURLException {
     System.out.println("Connecting to Selenium at: " + SELENIUM_URL);
+    System.out.println(SELENIUM_HOST);
 
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--no-sandbox");

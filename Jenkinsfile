@@ -30,7 +30,6 @@ pipeline {
             steps {
                 dir(APP1_DIR) {
                     sh 'mvn test'
-                    sh 'mvn surefire-report:report-only'
                 }
             }
             post {
@@ -52,7 +51,6 @@ pipeline {
             steps {
                 dir(APP2_DIR) {
                     sh 'mvn test'
-                    sh 'mvn surefire-report:report-only'
                 }
             }
             post {
@@ -83,17 +81,17 @@ pipeline {
     post {
         success {
             publishHTML([
-                reportName: 'API Test Report',
-                reportDir: "${APP1_DIR}/target/reports",
-                reportFiles: 'surefire.html',
+                reportName: 'Rest Assured - API Testing Report',
+                reportDir: "${APP1_DIR}/target/cucumber-reports",
+                reportFiles: 'cucumber.html',
                 keepAll: true,
                 allowMissing: false,
                 alwaysLinkToLastBuild: true
             ])
             publishHTML([
-                reportName: 'Web Test Report',
-                reportDir: "${APP2_DIR}/target/reports",
-                reportFiles: 'surefire.html',
+                reportName: 'Selenium - Web Testing Report',
+                reportDir: "${APP2_DIR}/target/cucumber-reports",
+                reportFiles: 'cucumber.html',
                 keepAll: true,
                 allowMissing: false,
                 alwaysLinkToLastBuild: true
