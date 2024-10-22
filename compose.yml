@@ -5,15 +5,48 @@ services:
     image: jenkins/jenkins:lts
     container_name: jenkins
     restart: unless-stopped
-    user: root # Run as root to install additional packages if necessary
+    user: root
     ports:
-      - "8080:8080" # Jenkins web UI port
-      - "50000:50000" # For Jenkins agent communication
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home # Persist Jenkins data
-      - /var/run/docker.sock:/var/run/docker.sock # For Docker inside Jenkins
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      JENKINS_OPTS: --prefix=/jenkins # Optional, to serve Jenkins from /jenkins path
+      JENKINS_OPTS: --prefix=/jenkins
+    networks:
+      - selenium-network
+
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium-chrome
+    shm_size: 2gb
+    environment:
+      - SE_NODE_MAX_SESSIONS=4
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_SESSION_TIMEOUT=300
+      # Removed SE_OPTS entirely and use SE_NODE_PORT instead
+      - SE_NODE_PORT=4444
+      # Separated OpenTelemetry config into its own environment variable
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=selenium-standalone
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:4444/wd/hub/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - selenium-network
+    depends_on:
+      - jenkins
+
+networks:
+  selenium-network:
+    driver: bridge
 
 volumes:
   jenkins_home:
