@@ -32,22 +32,19 @@ pipeline {
                     sh 'mvn test'
                 }
             }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
-                }
-                success {
-                    // Publish Cucumber Reports if the tests are successful
-                    publishHTML([
-                        reportName: 'Rest Assured - API Testing Report',
-                        reportDir: "${APP1_DIR}/target/cucumber-reports",
-                        reportFiles: 'cucumber.html',
-                        keepAll: true,
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true
-                    ])
-                }
-            }
+        }
+
+        stage('Generate API Report') {
+            cucumber buildStatus: 'UNSTABLE',
+                reportTitle: 'REST Assured - API Testing report',
+                fileIncludePattern: 'api/**/*.json',
+                trendsLimit: 10,
+                classifications: [
+                    [
+                        'key': 'Browser',
+                        'value': 'Firefox'
+                    ]
+                ]
         }
         
         stage('Build Web Testing') {
@@ -64,22 +61,19 @@ pipeline {
                     sh 'mvn test'
                 }
             }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
-                }
-                success {
-                    // Publish Cucumber Reports if the tests are successful
-                    publishHTML([
-                        reportName: 'Selenium - Web Testing Report',
-                        reportDir: "${APP2_DIR}/target/cucumber-reports",
-                        reportFiles: 'cucumber.html',
-                        keepAll: true,
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true
-                    ])
-                }
-            }
+        }
+
+        stage('Generate Web Testing Report') {
+            cucumber buildStatus: 'UNSTABLE',
+                reportTitle: 'Selenium - API Testing report',
+                fileIncludePattern: 'web/**/*.json',
+                trendsLimit: 10,
+                classifications: [
+                    [
+                        'key': 'Browser',
+                        'value': 'Firefox'
+                    ]
+                ]
         }
         
         stage('Generate Reports') {
