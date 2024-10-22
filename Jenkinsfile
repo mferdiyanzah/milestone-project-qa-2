@@ -35,16 +35,18 @@ pipeline {
         }
 
         stage('Generate API Report') {
-            cucumber buildStatus: 'UNSTABLE',
-                reportTitle: 'REST Assured - API Testing report',
-                fileIncludePattern: 'api/**/*.json',
-                trendsLimit: 10,
-                classifications: [
-                    [
-                        'key': 'Browser',
-                        'value': 'Firefox'
+            steps{
+                cucumber buildStatus: 'UNSTABLE',
+                    reportTitle: 'REST Assured - API Testing report',
+                    fileIncludePattern: 'api/**/*.json',
+                    trendsLimit: 10,
+                    classifications: [
+                        [
+                            'key': 'Browser',
+                            'value': 'Chrome'
+                        ]
                     ]
-                ]
+            }
         }
         
         stage('Build Web Testing') {
@@ -64,16 +66,18 @@ pipeline {
         }
 
         stage('Generate Web Testing Report') {
-            cucumber buildStatus: 'UNSTABLE',
-                reportTitle: 'Selenium - API Testing report',
-                fileIncludePattern: 'web/**/*.json',
-                trendsLimit: 10,
-                classifications: [
-                    [
-                        'key': 'Browser',
-                        'value': 'Firefox'
+            steps {
+                cucumber buildStatus: 'UNSTABLE',
+                    reportTitle: 'Selenium - API Testing report',
+                    fileIncludePattern: 'web/**/*.json',
+                    trendsLimit: 10,
+                    classifications: [
+                        [
+                            'key': 'Browser',
+                            'value': 'Chrome'
+                        ]
                     ]
-                ]
+            }
         }
         
         stage('Generate Reports') {
