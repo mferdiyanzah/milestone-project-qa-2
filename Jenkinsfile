@@ -42,7 +42,6 @@ pipeline {
             steps {
                 dir(APP1_DIR) {
                     sh 'mvn test | true'
-                    stash includes: 'target/cucumber-reports/*.json', name: 'cucumber-reports'
                 }
             }
         }
@@ -74,7 +73,6 @@ pipeline {
             steps {
                 dir(APP2_DIR) {
                     sh 'mvn test || true'
-                    stash includes: 'target/cucumber-reports/*.json', name: 'cucumber-reports'
                 }
             }
         }
