@@ -25,6 +25,12 @@ Feature: Authentication API
     Then the response status code should be 400
     And the response reason should be "Bad request"
 
+  Scenario: Attempt to authenticate with null username and password
+    Given the user has username "" and password ""
+    When the user requests a token
+    Then the response status code should be 400
+    And the response reason should be "Bad request"
+
   Scenario: Attempt to authenticate with invalid content type
     Given the user has username "admin" and password "password123"
     When the user requests a token with content type "text/plain"
@@ -33,6 +39,12 @@ Feature: Authentication API
 
   Scenario: Attempt to authenticate with long username
     Given the user has a long username and password "password123"
+    When the user requests a token
+    Then the response status code should be 400
+    And the response reason should be "Bad request"
+
+  Scenario: Attempt to authenticate with excessively long password
+    Given the user has username "admin" and password "verylongpasswordthatexceedslimits123456789012345678901234567890"
     When the user requests a token
     Then the response status code should be 400
     And the response reason should be "Bad request"
