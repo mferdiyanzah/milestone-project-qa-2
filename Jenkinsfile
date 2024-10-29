@@ -7,8 +7,9 @@ pipeline {
     }
     
     environment {
-        APP1_DIR = 'api'
-        APP2_DIR = 'web'
+        API = 'api'
+        WEB = 'web'
+        MOBILE = 'mobile'
     }
 
     
@@ -21,10 +22,13 @@ pipeline {
 
         stage('Prepare Directories') {
             steps {
-                dir(APP1_DIR) {
+                dir(API) {
                     sh 'mkdir -p target/cucumber-reports'
                 }
-                dir(APP2_DIR) {
+                dir(WEB) {
+                    sh 'mkdir -p target/cucumber-reports'
+                }
+                dir(MOBILE) {
                     sh 'mkdir -p target/cucumber-reports'
                 }
             }
@@ -32,7 +36,7 @@ pipeline {
         
         stage('Build API Testing') {
             steps {
-                dir(APP1_DIR) {
+                dir(API) {
                     sh 'mvn clean install -DskipTests'
                 }
             }
@@ -40,7 +44,7 @@ pipeline {
         
         stage('API Testing') {
             steps {
-                dir(APP1_DIR) {
+                dir(API) {
                     sh 'mvn test | true'
                 }
             }
@@ -63,7 +67,7 @@ pipeline {
         
         stage('Build Web Testing') {
             steps {
-                dir(APP2_DIR) {
+                dir(WEB) {
                     sh 'mvn clean install -DskipTests'
                 }
             }
@@ -71,7 +75,7 @@ pipeline {
         
         stage('Web Testing') {
             steps {
-                dir(APP2_DIR) {
+                dir(WEB) {
                     sh 'mvn test || true'
                 }
             }
@@ -96,12 +100,12 @@ pipeline {
             steps {
                 parallel(
                     "API Testing Report": {
-                        dir(APP1_DIR) {
+                        dir(API) {
                             sh 'mvn site'
                         }
                     },
                     "Web Testing Report Report": {
-                        dir(APP2_DIR) {
+                        dir(WEB) {
                             sh 'mvn site'
                         }
                     },

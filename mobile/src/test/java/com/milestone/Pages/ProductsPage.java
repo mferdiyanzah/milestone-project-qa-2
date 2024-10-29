@@ -31,7 +31,6 @@ public class ProductsPage {
   public boolean isProductDisplayed(String name, String price) {
     boolean nameFound = false;
     boolean priceFound = false;
-    System.out.println(productNames);
 
     for (WebElement productName : productNames) {
       if (productName.getText().equals(name)) {

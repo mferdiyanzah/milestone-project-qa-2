@@ -1,10 +1,10 @@
-package com.milestone;
+package requestBody;
 
 import org.json.simple.JSONObject;
 
-public class General {
+public class AuthRequestBodies {
   @SuppressWarnings("unchecked")
-  public JSONObject createAuthRequestBody(String username, String password) {
+  public static JSONObject createAuthRequestBody(String username, String password) {
     JSONObject requestBody = new JSONObject();
     requestBody.put("username", username);
     requestBody.put("password", password);

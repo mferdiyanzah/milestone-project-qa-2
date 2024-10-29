@@ -15,8 +15,11 @@ services:
     environment:
       JENKINS_OPTS: --prefix=/jenkins
       SELENIUM_HOST: selenium-chrome
+      APPIUM_HOST: appium
+      ANDROID_EMULATOR_HOST: android-emulator
     networks:
       - selenium-network
+      - mobile-testing-network
 
   selenium-chrome:
     image: selenium/standalone-chrome:latest
@@ -44,9 +47,62 @@ services:
     depends_on:
       - jenkins
 
+  appium:
+    image: appium/appium:latest
+    container_name: appium
+    privileged: true
+    ports:
+      - "4723:4723"
+    volumes:
+      - appium_data:/opt/appium
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+      - APPIUM_HOST=0.0.0.0
+      - APPIUM_PORT=4723
+      - APPIUM_LOG_LEVEL=info
+    networks:
+      - mobile-testing-network
+    depends_on:
+      - jenkins
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:4723/wd/hub/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  android-emulator:
+    image: budtmo/docker-android:emulator_11.0
+    container_name: android-emulator
+    privileged: true
+    ports:
+      - "6080:6080" # NoVNC
+      - "5554:5554" # ADB
+      - "5555:5555" # ADB
+    environment:
+      - EMULATOR_DEVICE=Samsung Galaxy S10
+      - WEB_VNC=true
+      - ANDROID_DEVICE=Samsung_Galaxy_S10
+      - APPIUM_HOST=appium
+      - APPIUM_PORT=4723
+      - SELENIUM_HOST=selenium-chrome
+      - NO_SNAPSHOT=true
+    networks:
+      - mobile-testing-network
+    depends_on:
+      - appium
+    healthcheck:
+      test: [ "CMD", "adb", "devices" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 networks:
   selenium-network:
+    driver: bridge
+  mobile-testing-network:
     driver: bridge
 
 volumes:
   jenkins_home:
+  appium_data:

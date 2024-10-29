@@ -1,9 +1,10 @@
-package com.milestone.annotations;
+package annotations;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
-import com.milestone.annotations.KnownIssue;
+
+import annotations.KnownIssue;
 
 import java.io.FileWriter;
 import java.io.IOException;
