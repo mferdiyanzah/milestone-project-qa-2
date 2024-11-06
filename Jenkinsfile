@@ -146,19 +146,27 @@ pipeline {
                         // Iterate through each scenario and count results
                         for (scenario in reportJson.elements) { 
                             if (scenario.type == "scenario" || scenario.type == "scenario outline") { 
+                                int scenarioResult = 0 // 0 = passed, 1 = failed, 2 = skipped
                                 for (step in scenario.steps) { 
                                     switch (step.result.status) { 
                                         case "passed":
-                                            passedTests++
+                                            scenarioResult = 0
                                             break
                                         case "failed":
-                                            failedTests++
+                                            scenarioResult = 1
                                             break
                                         case "skipped":
-                                            skippedTests++
+                                            scenarioResult = 2
                                             break
                                     } 
-                                } 
+                                }
+                                if (scenarioResult == 0) {
+                                    passedTests++
+                                } else if (scenarioResult == 1) {
+                                    failedTests++
+                                } else {
+                                    skippedTests++
+                                }
                             } 
                         }
 
@@ -186,11 +194,10 @@ pipeline {
                             sh """
                                 curl -H "Content-Type: application/json" -d '${payload}' ${DISCORD_WEBHOOK_URL}
                             """
-                        // sendReportToDiscord("${report} Testing Results - Build #${currentBuild.number}", currentBuild.currentResult, passedTests, failedTests, skippedTests, totalTests, color)
                     }
                 }
             }
-        }
+       }
     }
 
     post {
