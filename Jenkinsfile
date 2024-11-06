@@ -191,7 +191,24 @@ pipeline {
                         def color = failedTests == 0 ? 65280 : (passedTests == 0 ? 16711680 : 16776960)
 
                         // Send the report to Discord
-                        sendReportToDiscord("${report} Testing Results - Build #${currentBuild.number}", currentBuild.currentResult, passedTests, failedTests, skippedTests, totalTests, color)
+                        def payload = """
+                            {
+                                "embeds": [{
+                                    "title": "${report} Testing Results - Build #${currentBuild.number}",
+                                    "color": ${color},
+                                    "fields": [
+                                        {"name": "Status", "value": "${currentBuild.currentResult}", "inline": true},
+                                        {"name": "Test Results", "value": "✅ Passed: ${passedTests}\\n❌ Failed: ${failedTests}\\n⏩ Skipped: ${skippedTests}\\n📊 Total: ${totalTests}", "inline": false}
+                                    ],
+                                    "footer": {"text": "View detailed report: [Jenkins](${env.BUILD_URL})"},
+                                    "timestamp": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone('UTC'))}"
+                                }]
+                            }
+                            """
+                            sh """
+                                curl -H "Content-Type: application/json" -d '${payload}' ${DISCORD_WEBHOOK_URL}
+                            """
+                        // sendReportToDiscord("${report} Testing Results - Build #${currentBuild.number}", currentBuild.currentResult, passedTests, failedTests, skippedTests, totalTests, color)
                     }
                 }
             }
