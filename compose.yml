@@ -71,32 +71,6 @@ services:
       timeout: 10s
       retries: 3
 
-  android-emulator:
-    image: budtmo/docker-android:emulator_11.0
-    container_name: android-emulator
-    privileged: true
-    ports:
-      - "6080:6080" # NoVNC
-      - "5554:5554" # ADB
-      - "5555:5555" # ADB
-    environment:
-      - EMULATOR_DEVICE=Samsung Galaxy S10
-      - WEB_VNC=true
-      - ANDROID_DEVICE=Samsung_Galaxy_S10
-      - APPIUM_HOST=appium
-      - APPIUM_PORT=4723
-      - SELENIUM_HOST=selenium-chrome
-      - NO_SNAPSHOT=true
-    networks:
-      - mobile-testing-network
-    depends_on:
-      - appium
-    healthcheck:
-      test: [ "CMD", "adb", "devices" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
 networks:
   selenium-network:
     driver: bridge
