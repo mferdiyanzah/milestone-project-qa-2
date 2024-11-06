@@ -15,8 +15,7 @@ services:
     environment:
       JENKINS_OPTS: --prefix=/jenkins
       SELENIUM_HOST: selenium-chrome
-      APPIUM_HOST: appium
-      ANDROID_EMULATOR_HOST: android-emulator
+      APPIUM_HOST: host.docker.internal
     networks:
       - selenium-network
       - mobile-testing-network
