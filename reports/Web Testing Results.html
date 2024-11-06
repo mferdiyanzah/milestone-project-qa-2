@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!-- saved from url=(0141)http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<script src="./Cucumber Reports (no 53) - Features Overview_files/jquery.min.js.download"></script>
+<script src="./Cucumber Reports (no 53) - Features Overview_files/jquery.tablesorter.min.js.download"></script>
+<script src="./Cucumber Reports (no 53) - Features Overview_files/Chart.min.js.download"></script>
+<script src="./Cucumber Reports (no 53) - Features Overview_files/moment.min.js.download"></script>
+<script src="./Cucumber Reports (no 53) - Features Overview_files/bootstrap.min.js.download"></script>
+
+<link rel="stylesheet" href="./Cucumber Reports (no 53) - Features Overview_files/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="./Cucumber Reports (no 53) - Features Overview_files/cucumber.css" type="text/css">
+<link rel="stylesheet" href="./Cucumber Reports (no 53) - Features Overview_files/font-awesome.min.css">
+<link rel="shortcut icon" href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/images/favicon.png">
+
+<script>
+$(document).ready(function() {
+    // this will tell tablesorter to try looking for the data-value attribute
+    // if present, it'll sort by that instead
+    // otherwise, it'll sort by the text content of the table cell
+    $("#tablesorter").tablesorter({
+        textAttribute: 'data-value',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<title>Cucumber Reports (no 53) - Features Overview</title>
+
+
+  <script>
+$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                193,
+                0,
+                0,
+                0,
+                0
+            ],
+            backgroundColor: [
+                "#00B000",
+                "#FF3030",
+                "#88AAFF",
+                "#F5F28F",
+                "#F5B975"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed",
+            "Skipped",
+            "Pending",
+            "Undefined"
+        ]
+    };
+
+    var context = document.getElementById("steps-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Steps"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 193) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                46,
+                0
+            ],
+            backgroundColor: [
+                "#00B000",
+                "#FF3030"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed"
+        ]
+    };
+
+    var context = document.getElementById("scenarios-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Scenarios"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 46) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                   4,
+                   0
+               ],
+               backgroundColor: [
+                "#00B000",
+                "#FF3030"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed"
+        ]
+    };
+
+    var context = document.getElementById("features-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Features"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 4) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});  </script>
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber Report</p>
+      <ul class="nav navbar-nav navbar-right">
+          <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/">Jenkins</a></li>
+            <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/52/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html">Previous results</a></li>
+          <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/lastCompletedBuild/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html">Latest results</a></li>
+        <li role="presentation" class="active"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html">Features</a></li>
+        <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-tags.html">Tags</a></li>
+        <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-steps.html">Steps</a></li>
+          <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-trends.html">Trends</a></li>
+        <li role="presentation"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-failures.html">Failures</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="col-md-5 col-md-offset-1">
+
+<table class="table table-bordered" id="build-info">
+  <thead>
+    <tr>
+      <th>Project</th>
+        <th>Number</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>milestone-project-qa-2</td>
+        <td>53</td>
+      <td>06 Nov 2024, 15:44</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+
+<table class="table table-bordered" id="classifications">
+  <tbody>
+      <tr class="info">
+        <th>Browser</th>
+        <td>Chrome</td>
+      </tr>
+      <tr class="info">
+        <th>Report title</th>
+        <td>Selenium - Web Testing report</td>
+      </tr>
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+<div id="report-lead" class="container-fluid">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>Features Statistics</h2>
+      <p>The following graphs show passing and failing statistics for features</p>
+  </div>
+</div>
+
+
+  <div class="container-fluid" id="charts">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div id="featureChartCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#featureChartCarousel" data-slide-to="0" class=""></li>
+            <li data-target="#featureChartCarousel" data-slide-to="1" class=""></li>
+            <li data-target="#featureChartCarousel" data-slide-to="2" class="active"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="features-chart" height="369" width="925" style="display: block; height: 411px; width: 1028px;" class="chartjs-render-monitor"></canvas>
+            </div>
+
+            <div class="item"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="scenarios-chart" height="369" style="display: block; height: 411px; width: 1028px;" width="925" class="chartjs-render-monitor"></canvas>
+            </div>
+
+            <div class="item active"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="steps-chart" height="369" style="display: block; height: 411px; width: 1028px;" width="925" class="chartjs-render-monitor"></canvas>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html#featureChartCarousel" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/overview-features.html#featureChartCarousel" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+<table id="tablesorter" class="stats-table table-hover tablesorter tablesorter-default tablesorterb86b771e09aa7" role="grid">
+
+<thead>
+  <tr class="header dont-sort" role="row">
+      <th data-column="0"></th>
+    <th colspan="6" data-column="1">Steps</th>
+    <th colspan="3" data-column="7">Scenarios</th>
+    <th colspan="2" data-column="10">Features</th>
+  </tr>
+  <tr role="row" class="tablesorter-headerRow">
+    <th data-column="0" class="tablesorter-header tablesorter-headerUnSorted" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Feature: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Feature</div></th>
+    <th class="passed tablesorter-header tablesorter-headerUnSorted" data-column="1" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Passed: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Passed</div></th>
+    <th class="failed tablesorter-header tablesorter-headerUnSorted" data-column="2" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Failed: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Failed</div></th>
+    <th class="skipped tablesorter-header tablesorter-headerUnSorted" data-column="3" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Skipped: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Skipped</div></th>
+    <th class="pending tablesorter-header tablesorter-headerUnSorted" data-column="4" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Pending: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Pending</div></th>
+    <th class="undefined tablesorter-header tablesorter-headerUnSorted" data-column="5" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Undefined: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Undefined</div></th>
+    <th class="total tablesorter-header tablesorter-headerUnSorted" data-column="6" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Total: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Total</div></th>
+
+    <th class="passed tablesorter-header tablesorter-headerUnSorted" data-column="7" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Passed: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Passed</div></th>
+    <th class="failed tablesorter-header tablesorter-headerUnSorted" data-column="8" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Failed: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Failed</div></th>
+    <th class="total tablesorter-header tablesorter-headerUnSorted" data-column="9" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Total: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Total</div></th>
+
+    <th data-column="10" class="tablesorter-header tablesorter-headerUnSorted" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Duration: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Duration</div></th>
+    <th data-column="11" class="tablesorter-header tablesorter-headerUnSorted" tabindex="0" scope="col" role="columnheader" aria-disabled="false" aria-controls="tablesorter" unselectable="on" aria-sort="none" aria-label="Status: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner">Status</div></th>
+  </tr>
+</thead>
+
+
+  <tbody aria-live="polite" aria-relevant="all">
+      <tr role="row">
+        <td class="tagname"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/report-feature_1188734557.html">Login Page</a></td>
+
+        <td class="passed">35</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="total">35</td>
+
+        <td class="passed">8</td>
+        <td>0</td>
+        <td class="total">8</td>
+
+        <td class="duration" data-value="9333135405">9.333</td>
+        <td class="passed">Passed</td>
+      </tr>
+      <tr role="row">
+        <td class="tagname"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/report-feature_1_2144236834.html">Cart Page</a></td>
+
+        <td class="passed">89</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="total">89</td>
+
+        <td class="passed">18</td>
+        <td>0</td>
+        <td class="total">18</td>
+
+        <td class="duration" data-value="171378461835">2:51.378</td>
+        <td class="passed">Passed</td>
+      </tr>
+      <tr role="row">
+        <td class="tagname"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/report-feature_2_2076003158.html">Catalog List</a></td>
+
+        <td class="passed">45</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="total">45</td>
+
+        <td class="passed">14</td>
+        <td>0</td>
+        <td class="total">14</td>
+
+        <td class="duration" data-value="195987937603">3:15.987</td>
+        <td class="passed">Passed</td>
+      </tr>
+      <tr role="row">
+        <td class="tagname"><a href="http://localhost:8080/jenkins/job/milestone-project-qa-2/53/cucumber-html-reports_f3379a5b-d64b-328e-bc42-50f04b2dca8e/report-feature_3_3957311708.html">Sidebar</a></td>
+
+        <td class="passed">24</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="total">24</td>
+
+        <td class="passed">6</td>
+        <td>0</td>
+        <td class="total">6</td>
+
+        <td class="duration" data-value="7012852444">7.012</td>
+        <td class="passed">Passed</td>
+      </tr>
+  </tbody>
+
+  <tfoot class="total">
+    <tr role="row">
+      <td data-column="0"></td>
+      <td data-column="1">193</td>
+      <td data-column="2">0</td>
+      <td data-column="3">0</td>
+      <td data-column="4">0</td>
+      <td data-column="5">0</td>
+      <td data-column="6">193</td>
+
+      <td data-column="7">46</td>
+      <td data-column="8">0</td>
+      <td data-column="9">46</td>
+
+      <td class="duration" data-column="10">6:23.712</td>
+      <td data-column="11">4</td>
+    </tr>
+    <tr role="row">
+      <td data-column="0"></td>
+      <td data-column="1">100.00%</td>
+      <td data-column="2">0.00%</td>
+      <td data-column="3">0.00%</td>
+      <td data-column="4">0.00%</td>
+      <td data-column="5">0.00%</td>
+      <td data-column="6"></td>
+      <td data-column="7">100.00%</td>
+      <td data-column="8">0.00%</td>
+      <td data-column="9"></td>
+      <td data-column="10"></td>
+      <td data-column="11">100.00%</td>
+    </tr>
+  </tfoot>
+</table>
+
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-default" id="footer">
+  <div class="container-fluid">
+    <p class="navbar-text navbar-right">
+        <small>generate Cucumber HTML reports via:&nbsp;</small>
+        <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Standalone</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-sandwich">Sandwich</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/maven-cucumber-reporting">Maven</a>
+        &nbsp;&nbsp;
+    </p>
+  </div>
+</nav>
+
+
+
+</body></html>

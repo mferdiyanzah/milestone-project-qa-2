@@ -148,4 +148,17 @@ If you want to run the tests locally, you need to have Docker, Android Emulator,
 - ✅ Containerized testing
 - ✅ CI/CD integration
 
-### :shell: Jenkins Results
+### :camera: Documentation
+
+- Rest Assured Results
+![api testing results](results/api.png)
+
+- Selenium Results
+![alt text](results/web.png)
+
+- Appium Results
+![app testing results](results/mobile%201.png)
+
+- Discord Notifications
+![alt text](results/discord.png)
+
