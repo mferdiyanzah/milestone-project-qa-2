@@ -58,11 +58,10 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.1</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <outputDirectory>${project.build.directory}/site</outputDirectory>
                 </configuration>
             </plugin>
 
@@ -84,7 +83,7 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.7.7</version>
+                <version>5.3.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -93,8 +92,10 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>Web Testing Report</projectName>
-                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
+                            <projectName>${project.artifactId}</projectName>
+                            <skip>${skipTests}</skip>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory> <!-- Make sure this matches the output directory -->
                             <inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>
