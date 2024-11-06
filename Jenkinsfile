@@ -131,28 +131,6 @@ pipeline {
         stage('Send Reports to Discord') {
             steps {
                 script {
-
-                    // Function to send report to Discord
-                    def sendReportToDiscord(String title, String status, int passed, int failed, int skipped, int total, String color) {
-                        def payload = """
-                        {
-                            "embeds": [{
-                                "title": "${title}",
-                                "color": ${color},
-                                "fields": [
-                                    {"name": "Status", "value": "${status}", "inline": true},
-                                    {"name": "Test Results", "value": "✅ Passed: ${passed}\\n❌ Failed: ${failed}\\n⏩ Skipped: ${skipped}\\n📊 Total: ${total}", "inline": false}
-                                ],
-                                "footer": {"text": "View detailed report: [Jenkins](${env.BUILD_URL})"},
-                                "timestamp": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone('UTC'))}"
-                            }]
-                        }
-                        """
-                        sh """
-                            curl -H "Content-Type: application/json" -d '${payload}' ${DISCORD_WEBHOOK_URL}
-                        """
-                    }
-
                     // Read and parse the JSON reports for each testing type
                     def reports = ['API', 'Web', 'Mobile']
                     
