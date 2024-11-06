@@ -28,7 +28,7 @@ public class TestContext {
       options.addArguments(
           "--no-sandbox",
           "--disable-dev-shm-usage",
-          // "--headless=new",
+          "--headless=new",
           "--disable-gpu",
           "--window-size=1920,1080",
           "--remote-allow-origins=*",
