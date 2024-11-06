@@ -135,7 +135,7 @@ pipeline {
                     def reports = ['API', 'Web', 'Mobile']
                     
                     for (report in reports) {
-                        def jsonFile = "${report.toLowerCase()}/target/cucumber-reports/report.json"
+                        def jsonFile = "${report.toLowerCase()}/target/cucumber-reports/cucumber.json"
                         def reportJson = readJSON file: jsonFile
                         
                         // Initialize counters
