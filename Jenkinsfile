@@ -95,6 +95,37 @@ pipeline {
                     ]
             }
         }
+
+        stage('Build Mobile Testing') {
+            steps {
+                dir(MOBILE) {
+                    sh 'mvn clean install -DskipTests'
+                }
+            }
+        }
+
+        stage('Mobile Testing') {
+            steps {
+                dir(MOBILE) {
+                    sh 'mvn test || true'
+                }
+            }
+        }
+
+        stage('Generate Mobile Testing Report') {
+            steps {
+                cucumber buildStatus: 'UNSTABLE',
+                    reportTitle: 'Appium - Mobile Testing report',
+                    fileIncludePattern: 'mobile/**/*.json',
+                    trendsLimit: 10,
+                    classifications: [
+                        [
+                            'key': 'Browser',
+                            'value': 'Chrome'
+                        ]
+                    ]
+            }
+        }
         
         stage('Generate Reports') {
             steps {
