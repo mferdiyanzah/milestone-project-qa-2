@@ -1,5 +1,5 @@
 @BookingDetail
-Feature: Booking Detail
+Feature: Booking Detail API
   As a user
   I want to use the API to get booking details
   So that I can handle reservations effectively

@@ -1,5 +1,5 @@
 @Booking
-Feature: Get All Booking IDs
+Feature: Get All Booking IDs API
   As a user
   I want to use the API to get all booking IDs
   So that I can handle reservations effectively
