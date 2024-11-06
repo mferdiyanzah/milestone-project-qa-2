@@ -36,7 +36,6 @@ public class AddressCheckoutStep {
     String state = data.get(0).get("state");
     String zipCode = data.get(0).get("zipCode");
     String country = data.get(0).get("country");
-    System.out.println(fullName + " " + address + " " + city + " " + state + " " + zipCode + " " + country);
 
     addressCheckoutPage.fillCheckoutForm(fullName, address, city, state, zipCode, country);
   }

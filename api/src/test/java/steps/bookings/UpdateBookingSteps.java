@@ -77,18 +77,29 @@ public class UpdateBookingSteps {
   }
 
   @SuppressWarnings("unchecked")
-  @When("I update booking with id {int} with the following details:")
-  public void updateBookingWithDetails(int id, DataTable bookingDetails) {
+  @When("I update booking with existing id with the following details:")
+  public void updateBookingWithDetails(DataTable bookingDetails) {
     requestBody = new JSONObject();
+    var storedBookingId = context.getStoredBookingId();
 
     if (bookingDetails != null && !bookingDetails.asMaps().isEmpty()) {
       Map<String, String> bookingDetailsMap = bookingDetails.asMaps().get(0);
 
-      // Add fields only if they exist in the DataTable
-      addFieldIfPresent(bookingDetailsMap, "firstname");
-      addFieldIfPresent(bookingDetailsMap, "lastname");
-      addFieldIfPresent(bookingDetailsMap, "totalprice", true);
-      addFieldIfPresent(bookingDetailsMap, "depositpaid", false);
+      // Add fields directly to the requestBody
+      if (bookingDetailsMap.containsKey("firstname")) {
+        requestBody.put("firstname", bookingDetailsMap.get("firstname"));
+      }
+      if (bookingDetailsMap.containsKey("lastname")) {
+        requestBody.put("lastname", bookingDetailsMap.get("lastname"));
+      }
+      if (bookingDetailsMap.containsKey("totalprice")) {
+        requestBody.put("totalprice", Integer.parseInt(bookingDetailsMap.get("totalprice"))); // Assuming totalprice is
+                                                                                              // an integer
+      }
+      if (bookingDetailsMap.containsKey("depositpaid")) {
+        requestBody.put("depositpaid", Boolean.parseBoolean(bookingDetailsMap.get("depositpaid"))); // Convert to
+                                                                                                    // boolean
+      }
 
       // Handle booking dates if either is present
       if (bookingDetailsMap.containsKey("checkin") || bookingDetailsMap.containsKey("checkout")) {
@@ -102,7 +113,9 @@ public class UpdateBookingSteps {
         requestBody.put("bookingdates", bookingDates);
       }
 
-      addFieldIfPresent(bookingDetailsMap, "additionalneeds");
+      if (bookingDetailsMap.containsKey("additionalneeds")) {
+        requestBody.put("additionalneeds", bookingDetailsMap.get("additionalneeds"));
+      }
     }
 
     var response = given()
@@ -111,7 +124,8 @@ public class UpdateBookingSteps {
         .header("Accept", "application/json")
         .body(requestBody.toJSONString())
         .when()
-        .request(httpMethod, "/booking/{id}", id);
+        .request(httpMethod, "/booking/{id}", storedBookingId);
+
     context.setResponse(response);
   }
 
@@ -184,7 +198,7 @@ public class UpdateBookingSteps {
 
   @When("I update booking with id {int} with missing required fields:")
   public void updateBookingWithMissingFields(int id, DataTable bookingDetails) {
-    updateBookingWithDetails(id, bookingDetails);
+    updateBookingWithDetails(bookingDetails);
   }
 
   @Given("I have {int} concurrent update requests for booking id {int}")
@@ -202,7 +216,7 @@ public class UpdateBookingSteps {
     // You might want to use CompletableFuture or ExecutorService
     // Store responses in context for verification
     for (int i = 0; i < numRequests; i++) {
-      updateBookingWithDetails(bookingId, null);
+      updateBookingWithDetails(null);
     }
   }
 

@@ -99,7 +99,6 @@ public class ProductCatalogStep {
         Collections.reverse(sortedProductPrices);
         break;
       case "priceAsc":
-        System.out.println(sortedProductPrices);
         sortedProductPrices.sort(Comparator.comparingDouble(this::parsePrice));
         break;
       default:

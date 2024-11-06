@@ -71,7 +71,9 @@ public class CreateBookingSteps {
         .body(requestBody.toJSONString())
         .when()
         .post("/booking");
+
     context.setResponse(response);
+    context.setStoredBookingId(response.jsonPath().getInt("bookingid"));
   }
 
   @Then("the user get the booking id")

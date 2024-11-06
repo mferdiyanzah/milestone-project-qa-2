@@ -63,7 +63,6 @@ public class AuthSteps {
         .body(requestBody.toJSONString())
         .when()
         .post();
-    System.out.println(response.asString());
 
     context.setResponse(response);
   }

@@ -16,6 +16,7 @@ public class TestContext {
   private final Map<String, Object> testData;
   private final Map<Integer, List<Response>> concurrentResponses;
   private Scenario scenario;
+  private int storedBookingId;
 
   public TestContext() {
     this.testData = new HashMap<>();
@@ -46,10 +47,6 @@ public class TestContext {
 
   public void setResponse(Response response) {
     this.response = response;
-    if (scenario != null) {
-      scenario.log("Response Status Code: " + response.getStatusCode());
-      scenario.log("Response Body: " + response.getBody().asString());
-    }
   }
 
   public int getResponseStatus() {
@@ -139,5 +136,13 @@ public class TestContext {
 
   public String getToken() {
     return getAttribute("token", String.class);
+  }
+
+  public void setStoredBookingId(int storedBookingId) {
+    this.storedBookingId = storedBookingId;
+  }
+
+  public int getStoredBookingId() {
+    return storedBookingId;
   }
 }
