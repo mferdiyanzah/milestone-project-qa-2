@@ -162,3 +162,20 @@ If you want to run the tests locally, you need to have Docker, Android Emulator,
 - Discord Notifications
 ![alt text](results/discord.png)
 
+---
+
+### :rocket: Future Improvements
+
+- Add more tests for the API
+- Add more tests for the Web
+- Add more tests for the Mobile
+- Add more reporting options
+- Add more best practices
+- Include more features
+
+### :construction: Obstacles
+
+- Time of the setup is quite long
+- The setup is not easy for everyone
+- Mobile testing success rate is low due to intermittent errors and unstable emulators
+- API Documentation is not good enough to be able create more scenario
